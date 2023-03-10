@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,600&family=Oswald:wght@500&display=swap" rel="stylesheet">
+	<title>Registration-page</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body{
+			background-color: #F4FFE1 ;
+		}
+		nav{
+			background-color: #254117;
+			height: 100px;
+		}
+		img{
+			width:80px; 
+			height: 80px; 
+			border-radius: 50%;
+		}
+		.navbar-text{
+			font-family: 'Barlow Condensed', sans-serif;
+			font-size: 2rem;
+		}
+		#form-container{
+			margin-top: 100px;
+		}
+		.card{
+			background-color: #EDFFCC ;
+			border: none;
+		}
+		
+		h2{
+			color: green;
+			font-family: 'Oswald', sans-serif;
+			text-decoration: underline;
+		}
+
+		.form-control{
+			border: 1px solid #9EC25C;
+			border-radius: 20px;
+			margin-top: 3px;
+		}
+		.btn{
+			background-color: #254117;
+			border: 1px solid green;
+			border-radius: 30px;
+			width: 100%;
+		}
+		#alert-container{
+			margin-top:20px;
+		}
+		.null-div{
+			margin-top: 100px;
+		}
+
+	</style>
+</head>
+<body>
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top"> 
+		<div class="container-fluid">		
+			<!--Toggler Button-->
+			<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#ToggleMenu">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<!-- Logo and Name here -->
+			<div id="ToggleMenu" class="collapse navbar-collapse">
+				<h3 class="navbar-text mx-auto">Plant Species Detection</h3>
+			</div>
+		</div>
+	</nav>
+		
+	<div class="container" id="form-container">
+		<div class="row">
+			<div class="col-sm-10 col-md-8 col-lg-6 mt-3 mx-auto my-auto">
+				<form method="POST">
+				{% csrf_token %}
+					<div class="card">
+						<div class="card-header mx-auto"> <h2>Registration</h2> </div>
+					
+						<div class="card-body"> 
+							<input type="text" class="form-control" name="username" placeholder="Username, Eg: saeed01" required />
+				            <input type="text" class="form-control" name="fullname" placeholder="Full Name, Eg: Joseph Burg" required />
+				            <input type="email" class="form-control" name="email" placeholder="Email Address" required />
+				            <input type="password" class="form-control" name="password" placeholder="Password" required />
+				            <input type="password" class="form-control" name="cpassword" placeholder="Confirm Password" required />
+				            <input type="number" class="form-control" name="phone" placeholder="Phone" required />
+				            <input type="text" class="form-control" name="address" placeholder="Address" required />
+						</div>
+
+						<div class="container" id="button-container"> 
+							<div class="row">
+								<div class="col-sm-8 col-md-6 col-lg-4">
+									<input type="submit" class="btn btn-success" name="submit" value="Register">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<span> <a href="{% url 'userLogin' %}">Already have account</a></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	{% for message in messages %}
+		<div class="container" id="alert-container">
+			<div  class="alert alert-secondary">
+				<strong>{{ message }}</strong>
+			</div>
+		</div>
+	{% endfor %}
+	<div class="null-div"></div>
+</body>
+</html>

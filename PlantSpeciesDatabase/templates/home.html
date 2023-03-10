@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,600&family=Oswald:wght@500&display=swap" rel="stylesheet">
+	<title>Plants-Details</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		body{
+			background-color: #F4FFE1;
+		}
+		nav{
+			background-color: #254117;
+		}
+		.navbar-text{
+			font-family: 'Barlow Condensed', sans-serif;
+			font-size: 2rem;
+		}
+		#top-container{
+			margin-top: 100px;
+			text-align: center;
+		}
+		#form-container{
+			margin-top: 20px;
+		}
+		.btn{
+			border-radius: 0 20px 20px 0;
+		}
+		#card-container{
+			margin-top: 50px;
+		}
+		a{
+			text-decoration: none;
+		}
+		span{
+			width: 100px;
+		}
+		img{
+			width:60px; 
+			height: 60px; 
+			border-radius: 50%;
+		}
+		.form-control{
+			border: 1px solid #9EC25C;
+			border-radius: 20px;
+			margin-top: 3px;
+		}
+		h5{
+			color: green;
+		}
+	</style>
+</head>
+<body>
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top"> 
+		<div class="container-fluid">		
+			<!--Toggler Button-->
+			<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#ToggleMenu">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<!-- Logo and Name here -->
+			<div id="ToggleMenu" class="collapse navbar-collapse">
+				<h3 class="navbar-text mx-auto">Plant Species Detection</h3>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container" id="top-container">
+		<h4>100 Plants Species</h4>
+	</div>
+
+	<div class="container" id="form-container">
+		<form method="POST">
+			{% csrf_token %}
+			<div class="input-group input-group-md"> <!-- input-group-lg , md ,sm-->
+				<input type="text" class="form-control" name="plantname" placeholder="Enter plant name here">
+				<input type="submit" class="input-group-text btn btn-success" name="submit" value="Search">
+			</div>
+		</form>
+	</div>
+
+	<div class="container" id="card-container">
+		
+		<div class="row">
+			{% for n in plant_details %}
+			<div class="col-sm-6 col-md-4 col-lg-3 mt-3">
+				<div class="card">
+					<div class="card-header"><h5>Plant Name</h5> {{n.plant_name}} </div>
+					<div class="card-header"><h5>Plant Family Name</h5> {{n.plant_family}} </div> 
+					<div class="card-body"> 
+						<a href="#des{{n.id}}" data-bs-toggle="collapse">More Details</a>
+						<p id="des{{n.id}}" class="collapse">{{n.plant_des}}</p>
+					</div>
+				</div>
+			</div>
+			{% empty %}
+				<div class="container">
+					<div class="alert alert-danger"><strong>Plant not found!</strong> Try another</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</body>
+</html>
